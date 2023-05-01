@@ -1,64 +1,37 @@
 ﻿#MaxThreadsPerHotkey 3
 #IfWinActive, Minecraft
+#CommentFlag //
 
-I_Icon = E:\Programming\Autohotkey scripts\Minecraft\minecraft_logo.png
+I_Icon = %A_ScriptDir%\minecraft_logo.png
 ICON [I_Icon]
 if I_Icon <>
 IfExist, %I_Icon%
 	Menu, Tray, Icon, %I_Icon%
 
+toggleRapidRight := false
+toggleAttackLeft := false
+
+RButton:: 
+
+// Rapid Clicking Right
+F23 & RButton::
+toggleRapidRight := true
+while GetKeyState (RButton)
 {
-F5::
-Toggle := !Toggle
-If Toggle
-	Click, Down
-else
-	Click, Up
+	Click, Right
+	Sleep 20
+}
 Return
 
-F6::
-Toggle := !Toggle
-If Toggle
-	Click, Right, Down
-else
-	Click, Right, Up
-Return
-
-F7::
-Toggle := !Toggle
-Loop
+F23 & LButton::
+toggleAttackLeft := true
+while toggleAttackLeft
 {
-	If (!Toggle)
-		Break
 	Click, Left
 	Sleep 50
 }
 Return
 
-F8::
-Toggle := !Toggle
-Loop
-{
-	If (!Toggle)
-		Break
-	Click, Right
-	Sleep 20
-}
+LButton up::
+toggleAttackLeft := false
 Return
-
-
-F10::
-Toggle := !Toggle
-Loop
-{
-	If (!Toggle)
-		Break
-	Click, Right
-	Sleep 20
-Click, Right
-	Sleep 20
-Click, Left
-	Sleep 20
-}
-Return
-}
